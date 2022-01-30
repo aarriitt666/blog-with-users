@@ -1,0 +1,7 @@
+Flask>=2.0.2
+SQLAlchemy>=1.4.31
+Werkzeug>=2.0.2
+
+python-dotenv>=0.19.2
+WTForms>=3.0.1
+bleach>=4.1.0
