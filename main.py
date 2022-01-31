@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from forms import CreatePostForm, UserRegisterForm, LoginForm, CommentForm
+from forms import CreatePostForm, UserRegisterForm, LoginForm, CommentForm, PasswordChange
 from flask_gravatar import Gravatar
 from dotenv import load_dotenv
 import os
@@ -299,6 +299,25 @@ def delete_comment(comment_id, post_id):
 @login_required
 def test():
     return render_template('test.html')
+
+
+@app.route('/passwd_change_for_admin', methods=['POST', 'GET'])
+@login_required
+@admin_only
+def passwd_change_for_admin():
+    change_admin_password_form = PasswordChange()
+    admin_object = User.query.filter_by(id=1).first()
+    if request.method == 'POST':
+        if change_admin_password_form.validate_on_submit():
+            new_password = change_admin_password_form.password.data
+            confirm_new_password = change_admin_password_form.confirm_password.data
+            if new_password == confirm_new_password:
+                admin_object.password = generate_password_hash(new_password, method='pbkdf2:sha256',
+                                                               salt_length=11)
+                db.session.commit()
+                flash('Your password had been changed successfully!', 'password change message')
+                return redirect(url_for('get_all_posts'))
+    return render_template('password_change.html', change_admin_password_form=change_admin_password_form)
 
 
 if __name__ == "__main__":

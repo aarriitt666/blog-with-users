@@ -31,3 +31,9 @@ class LoginForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment_body = CKEditorField('Comment', validators=[Length(max=5000)])
     submit_comment = SubmitField('Add Comment')
+
+
+class PasswordChange(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired(), Length(max=100)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), Length(max=100)])
+    submit_password_change = SubmitField('Change Password')
