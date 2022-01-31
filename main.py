@@ -74,7 +74,7 @@ class Comment(db.Model):
     parent_post = relationship('BlogPost', back_populates='comments')
 
 
-# db.create_all()
+db.create_all()
 
 # strips invalid tags/attributes
 def strip_invalid_html(content):
