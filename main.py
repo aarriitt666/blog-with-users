@@ -20,7 +20,7 @@ load_dotenv('./.env')
 app = Flask(__name__)
 # app.config['SECRET_KEY'] = os.getenv('BWU-API-Key')
 # This line allows this app to use Heroku's Config Vars environment variable for SECRET_KEY.
-app.config['SECRET_KEY'] = os.environ.get('BWU-API-Key')
+app.config['SECRET_KEY'] = os.getenv('BWU-API-Key')
 app.config['TRAP_BAD_REQUEST_ERRORS'] = True
 ckeditor = CKEditor(app)
 Bootstrap(app)
@@ -32,7 +32,7 @@ login_manager.login_view = 'login'
 ##CONNECT TO DB
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 # This line will allow this app to use Heroku's Postgres Database.
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///blog.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///blog.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
