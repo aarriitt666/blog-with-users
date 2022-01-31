@@ -324,6 +324,24 @@ def passwd_change_for_admin():
     return render_template('password_change.html', change_admin_password_form=change_admin_password_form)
 
 
+@app.route('/passwd_change_for_user', methods=['POST', 'GET'])
+@login_required
+def passwd_change_for_user():
+    change_user_password_form = PasswordChange()
+    user_object = User.query.filter_by(current_user.id).first()
+    if request.method == 'POST':
+        if change_user_password_form.validate_on_submit():
+            new_password = change_user_password_form.password.data
+            confirm_new_password = change_user_password_form.confirm_password.data
+            if new_password == confirm_new_password:
+                user_object.password = generate_password_hash(new_password, method='pbkdf2:sha256',
+                                                              salt_length=11)
+                db.session.commit()
+                flash('Your password had been changed successfully!', 'password change message')
+                return redirect(url_for('get_all_posts'))
+    return render_template('password_change.html', change_user_password_form=change_user_password_form)
+
+
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', port=5000)
     app.run(debug=False)

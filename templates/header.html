@@ -86,9 +86,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
                 </li>
-                {% if current_user.id == 1 %}
+                {% if current_user.id == 1: %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('passwd_change_for_admin') }}">Change Password</a>
+                </li>
+                {% else: %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('passwd_change_for_user') }}">Change Password</a>
                 </li>
                 {% endif %}
             </ul>
