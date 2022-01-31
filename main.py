@@ -339,7 +339,7 @@ def passwd_change_for_user():
                 db.session.commit()
                 flash('Your password had been changed successfully!', 'password change message')
                 return redirect(url_for('get_all_posts'))
-    return render_template('password_change.html', change_user_password_form=change_user_password_form)
+    return render_template('password_change_for_users.html', change_user_password_form=change_user_password_form)
 
 
 if __name__ == "__main__":
