@@ -15,7 +15,7 @@ import os
 from functools import wraps
 import bleach
 
-load_dotenv('C:/Users/argda/PycharmProjects/.env/.env')
+load_dotenv('./.env')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('BWU-API-Key')
