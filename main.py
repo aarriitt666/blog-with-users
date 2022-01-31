@@ -328,7 +328,7 @@ def passwd_change_for_admin():
 @login_required
 def passwd_change_for_user():
     change_user_password_form = PasswordChange()
-    user_object = User.query.filter_by(current_user.id).first()
+    user_object = User.query.filter_by(id=current_user.id).first()
     if request.method == 'POST':
         if change_user_password_form.validate_on_submit():
             new_password = change_user_password_form.password.data
@@ -344,4 +344,4 @@ def passwd_change_for_user():
 
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', port=5000)
-    app.run(debug=False)
+    app.run(debug=True)
