@@ -91,9 +91,11 @@
                     <a class="nav-link" href="{{ url_for('passwd_change_for_admin') }}">Change Password</a>
                 </li>
                 {% else: %}
+                {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('passwd_change_for_user') }}">Change Password</a>
                 </li>
+                {% endif %}
                 {% endif %}
             </ul>
         </div>
